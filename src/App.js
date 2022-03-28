@@ -8,8 +8,7 @@ function App() {
   const [filterText, setFilterText] = useState("");
   const [filterRate, setFilterRate] = useState(0);
 
-  console.log(filterText);
-  const movies = [
+  const data = [
     {
       id: Math.random(),
       title: "The Shawshank Redemption",
@@ -51,6 +50,14 @@ function App() {
     },
   ];
 
+  const [movies, setMovies] = useState(data);
+
+  const addMovie = (newMovie) => {
+    setMovies([...movies, newMovie]);
+  };
+
+  console.log(filterText);
+
   return (
     <div>
       <Header
@@ -59,7 +66,7 @@ function App() {
         filterRate={filterRate}
       />
 
-      <MovieForm isEdit={false} />
+      <MovieForm isEdit={false} addMovie={addMovie} />
       <MoviesList
         movies={movies}
         filterText={filterText}
