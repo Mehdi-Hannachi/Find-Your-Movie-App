@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Button, Modal, Form, Col, Row } from "react-bootstrap";
 import Stars from "../Stars/Stars";
+import { MultiSelect } from "react-multi-select-component";
+
 import "./movieform.css";
 
 // function MyVerticallyCenteredModal(props) {
@@ -76,6 +78,13 @@ const MovieForm = ({ isEdit, addMovie }) => {
   const [rate, setRate] = useState(0);
   const [link, setLink] = useState("");
   const [trailer, setTrailer] = useState("");
+  const [selected, setSelected] = useState([]);
+
+  const options = [
+    { label: "Grapes 🍇", value: "grapes" },
+    { label: "Mango 🥭", value: "mango" },
+    { label: "Strawberry 🍓", value: "strawberry", disabled: true },
+  ];
 
   const add = (e) => {
     e.preventDefault();
@@ -89,6 +98,7 @@ const MovieForm = ({ isEdit, addMovie }) => {
       rate,
       link,
       trailer,
+      selected
     };
 
     if (
@@ -198,6 +208,17 @@ const MovieForm = ({ isEdit, addMovie }) => {
                 onChange={(e) => setTrailer(e.target.value)}
               />
             </Form.Group>
+
+            <div>
+              <h1>Select Fruits</h1>
+              <pre>{JSON.stringify(selected)}</pre>
+              <MultiSelect
+                options={options}
+                value={selected}
+                onChange={setSelected}
+                labelledBy="Select"
+              />
+            </div>
 
             <Form.Group as={Col}>
               <Form.Label>Description</Form.Label>

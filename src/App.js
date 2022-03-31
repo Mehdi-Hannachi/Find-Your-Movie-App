@@ -4,6 +4,10 @@ import Header from "./components/Header/Header";
 import MoviesList from "./components/MoviesList/MoviesList";
 import MovieForm from "./components/MovieForm/MovieForm";
 
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home/Home";
+import MovieDetails from "./components/MovieDetails/MovieDetails";
+
 function App() {
   const [filterText, setFilterText] = useState("");
   const [filterRate, setFilterRate] = useState(0);
@@ -67,11 +71,25 @@ function App() {
       />
 
       <MovieForm isEdit={false} addMovie={addMovie} />
-      <MoviesList
-        movies={movies}
-        filterText={filterText}
-        filterRate={filterRate}
-      />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/movieslist"
+          element={
+            <MoviesList
+              movies={movies}
+              filterText={filterText}
+              filterRate={filterRate}
+            />
+          }
+        />
+
+        <Route
+          path="/moviedetails/:id"
+          element={<MovieDetails movies={movies} />}
+        />
+      </Routes>
     </div>
   );
 }
